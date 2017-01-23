@@ -1,25 +1,31 @@
-import { IAppState, rootReducer, deimmutify, reimmutify } from './store';
-import { ICounter } from './counter';
-import { ISession } from './session';
+import {
+  IAppState,
+  rootReducer,
+  deimmutify,
+  reimmutify
+} from './store';
+import * as Redux from 'redux';
+import {dev} from '../configuration';
+import {
+  createStore,
+  applyMiddleware,
+  compose
+} from 'redux';
+import {createEpicMiddleware} from 'redux-observable';
+import {rootEpic} from '../epics/index';
+import {composeReducers, defaultFormReducer} from 'ng2-redux-form';
 
-import { dev } from '../configuration';
+type RetypedCompose = (func: Function, ...funcs: Function[]) => Function;
+
 const createLogger = require('redux-logger');
 const persistState = require('redux-localstorage');
 
-export {
-  IAppState,
-  ISession,
-  ICounter,
-  rootReducer,
-  reimmutify,
-};
-
-export let middleware = [];
-export let enhancers = [
+let middleware = [];
+let enhancers = [
   persistState(
     '',
     {
-      key: 'angular2-redux-seed',
+      key: 'ng2-dnd',
       serialize: store => JSON.stringify(deimmutify(store)),
       deserialize: state => reimmutify(JSON.parse(state)),
     })
@@ -28,8 +34,30 @@ export let enhancers = [
 if (dev) {
   middleware.push(
     createLogger({
-    level: 'info',
-    collapsed: true,
-    stateTransformer: deimmutify,
-  }));
+      level: 'info',
+      collapsed: true,
+      stateTransformer: deimmutify,
+    }));
+
+  const environment: any = window || this;
+  if (environment.devToolsExtension) {
+    enhancers.push(environment.devToolsExtension());
+  }
 }
+
+middleware.push(createEpicMiddleware(rootEpic));
+
+const reTypedCompose = compose as RetypedCompose;
+const finalCreateStore = <Redux.StoreEnhancerStoreCreator<IAppState>>
+  reTypedCompose(
+    applyMiddleware(...middleware),
+    ...enhancers
+  )(createStore);
+
+
+const finalReducers = composeReducers(
+  defaultFormReducer(),
+  rootReducer
+);
+export const store = finalCreateStore(finalReducers, {});
+export {IAppState} from './store';

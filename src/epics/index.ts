@@ -1,4 +1,6 @@
-import { SessionEpics } from './session.epics';
+import {combineEpics} from 'redux-observable';
+import racesEpics from './character';
 
-export const EPIC_PROVIDERS = [ SessionEpics ];
-export { SessionEpics };
+export const rootEpic = combineEpics(
+  racesEpics
+);

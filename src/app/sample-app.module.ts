@@ -16,13 +16,9 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {RioSampleApp} from './sample-app';
-import {SessionActions} from '../actions/session.actions';
-import {SessionEpics} from '../epics/session.epics';
 import {
   RioAboutPage,
-  RioCounterPage
 } from '../pages';
-import {RioCounter} from '../components/counter/counter.component';
 import {RioLoginModule} from '../components/login/login.module';
 import {RioUiModule} from '../components/ui/ui.module';
 import {RioModalModule} from '../components/modal/modal.module';
@@ -44,8 +40,6 @@ import {RioNavigatorModule} from '../components/navigator/navigator.module';
   declarations: [
     RioSampleApp,
     RioAboutPage,
-    RioCounterPage,
-    RioCounter
   ],
   bootstrap: [
     RioSampleApp
@@ -55,8 +49,6 @@ import {RioNavigatorModule} from '../components/navigator/navigator.module';
     FormBuilder,
     NgReduxRouter,
     appRoutingProviders,
-    SessionActions,
-    SessionEpics
   ]
 })
 export class RioSampleAppModule { }
