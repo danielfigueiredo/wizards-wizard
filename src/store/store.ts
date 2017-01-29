@@ -1,29 +1,29 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'ng2-redux-router';
 import {
-  ICharacter,
-  characterReducer
-} from './character';
+  IForm,
+  formReducer
+} from './form';
 
 export interface IAppState {
-  characterForm?: ICharacter;
+  form?: IForm;
 };
 
 export const rootReducer = combineReducers<IAppState>({
   router: routerReducer,
-  characterForm: characterReducer,
+  form: formReducer,
 });
 
 export function deimmutify(store) {
   return {
     router: store.router,
-    characterForm: store.characterForm,
+    form: store.form,
   };
 }
 
 export function reimmutify(plain) {
   return {
     router: plain.router,
-    characterForm: plain.characterForm,
+    form: plain.form,
   };
 }
