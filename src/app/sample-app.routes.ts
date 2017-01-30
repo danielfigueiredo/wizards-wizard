@@ -7,7 +7,7 @@ import {
 export const SAMPLE_APP_ROUTES: Routes = [{
   pathMatch: 'full',
   path: '',
-  redirectTo: 'counter'
+  redirectTo: 'about'
 }, {
   path: 'about',
   component: RioAboutPage
