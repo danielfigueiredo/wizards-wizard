@@ -13,7 +13,6 @@ import {
 } from 'redux';
 import {createEpicMiddleware} from 'redux-observable';
 import {rootEpic} from '../epics/index';
-import {composeReducers, defaultFormReducer} from 'ng2-redux-form';
 
 type RetypedCompose = (func: Function, ...funcs: Function[]) => Function;
 
@@ -54,10 +53,5 @@ const finalCreateStore = <Redux.StoreEnhancerStoreCreator<IAppState>>
     ...enhancers
   )(createStore);
 
-
-const finalReducers = composeReducers(
-  defaultFormReducer(),
-  rootReducer
-);
-export const store = finalCreateStore(finalReducers, {});
+export const store = finalCreateStore(rootReducer, {});
 export {IAppState} from './store';
