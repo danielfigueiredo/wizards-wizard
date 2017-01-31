@@ -15,8 +15,8 @@ const characterFormSelector = createSelector(
 
 const isRaceAlignmentValid = (character) => {
   const race = character.bioSummary.race.toLowerCase();
-  const valid = validRaceAlignments[race].filter(value => value === character.bioSummary.alignment);
-  return valid.length > 0;
+  const valid = validRaceAlignments[race].find(val => val === character.bioSummary.alignment);
+  return valid !== undefined;
 };
 
 export const isFormValid = createSelector(
