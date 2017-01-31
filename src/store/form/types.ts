@@ -3,6 +3,8 @@ export interface ICharacter {
   bioSummary: {
     age: number;
     size: string;
+    alignment: string;
+    race: string;
   };
   skills: string[];
 }

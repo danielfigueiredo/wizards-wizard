@@ -21,27 +21,44 @@ import {NgForm} from '@angular/forms';
   template: `
     <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
       <label>Character Name:</label>
-      <input 
-        type="text" 
-        name="name" 
-        #characterModel="ngModel" 
+      <input
+        type="text"
+        name="name"
+        #characterModel="ngModel"
         [(ngModel)]="characterForm.name">
       <fieldset ngModelGroup="bioSummary">
         <label>Age:</label>
-        <input 
-          type="number" 
-          name="age" 
+        <input
+          type="number"
+          name="age"
           [(ngModel)]="characterForm.bioSummary.age">
         <label>Size:</label>
-        <input 
-          type="text" 
+        <input
+          type="text"
           name="size"
           [(ngModel)]="characterForm.bioSummary.size">
+        <label>Alignment:</label>
+        <select
+          name="alignment"
+          [(ngModel)]="characterForm.bioSummary.alignment">
+          <option *ngFor="let alignment of alignments" [value]="alignment">
+            {{ alignment }}
+          </option>
+        </select>
+
+        <label>Race:</label>
+        <select
+          name="race"
+          [(ngModel)]="characterForm.bioSummary.race">
+          <option *ngFor="let race of races" [value]="race">
+            {{ race }}
+          </option>
+        </select>
       </fieldset>
-      
+
       <label>Skills:</label>
       <div *ngFor="let cs of characterForm.skills; let i = index;">
-        <select 
+        <select
           [value]="cs"
           (change)="onSelectSkill($event, i)">
           <option *ngFor="let skill of skills" [value]="skill">
@@ -52,7 +69,7 @@ import {NgForm} from '@angular/forms';
       </div>
       <button type="button" (click)="addSkill()">Add skill</button>
       <div>
-        <button 
+        <button
           [disabled]="!(isFormValid$ | async)"
           type="submit">
           Save
@@ -68,6 +85,10 @@ export class RioAboutPage {
 
   characterForm;
   skills = ['', 'Knowledge Arcana', 'Climb', 'Perception', 'Investigation'];
+  alignments = ['Lawful Good', 'Lawful Neutral', 'Lawful Evil',
+  'Neutral Good', 'Neutral', 'Neutral Evil',
+  'Chaotic Good', 'Chaotic Neutral', 'Chaotic Evil'];
+  races = ['Elf', 'Human', 'Tiefling'];
 
   private formSubs;
 
