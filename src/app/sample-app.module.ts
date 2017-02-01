@@ -19,10 +19,11 @@ import {RioSampleApp} from './sample-app';
 import {
   RioCharacterForm,
 } from '../pages';
-import {RioLoginModule} from '../components/login/login.module';
-import {RioUiModule} from '../components/ui/ui.module';
-import {RioModalModule} from '../components/modal/modal.module';
-import {RioNavigatorModule} from '../components/navigator/navigator.module';
+
+// Something in the form module is necessary.
+// Related to rxjs. Can't seem to import it directly to our component.
+import {RioFormModule} from '../components/form/form.module';
+// import {RioUiModule} from '../components/ui/ui.module';
 
 @NgModule({
   imports: [
@@ -31,10 +32,8 @@ import {RioNavigatorModule} from '../components/navigator/navigator.module';
     BrowserModule,
     routing,
     CommonModule,
-    RioLoginModule,
-    RioUiModule,
-    RioNavigatorModule,
-    RioModalModule,
+    RioFormModule,
+    // RioUiModule,
     NgReduxModule.forRoot(),
   ],
   declarations: [

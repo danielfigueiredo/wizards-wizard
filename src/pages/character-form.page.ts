@@ -18,65 +18,8 @@ import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'rio-character-form',
-  template: `
-    <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
-      <label>Character Name:</label>
-      <input
-        type="text"
-        name="name"
-        #characterModel="ngModel"
-        [(ngModel)]="characterForm.name">
-      <fieldset ngModelGroup="bioSummary">
-        <label>Age:</label>
-        <input
-          type="number"
-          name="age"
-          [(ngModel)]="characterForm.bioSummary.age">
-        <label>Size:</label>
-        <input
-          type="text"
-          name="size"
-          [(ngModel)]="characterForm.bioSummary.size">
-        <label>Alignment:</label>
-        <select
-          name="alignment"
-          [(ngModel)]="characterForm.bioSummary.alignment">
-          <option *ngFor="let alignment of alignments" [value]="alignment">
-            {{ alignment }}
-          </option>
-        </select>
-
-        <label>Race:</label>
-        <select
-          name="race"
-          [(ngModel)]="characterForm.bioSummary.race">
-          <option *ngFor="let race of races" [value]="race">
-            {{ race }}
-          </option>
-        </select>
-      </fieldset>
-
-      <label>Skills:</label>
-      <div *ngFor="let cs of characterForm.skills; let i = index;">
-        <select
-          [value]="cs"
-          (change)="onSelectSkill($event, i)">
-          <option *ngFor="let skill of skills" [value]="skill">
-            {{ skill }}
-          </option>
-        </select>
-        <button type="button" (click)="removeSkill(i)">Remove</button>
-      </div>
-      <button type="button" (click)="addSkill()">Add skill</button>
-      <div>
-        <button
-          [disabled]="!(isFormValid$ | async)"
-          type="submit">
-          Save
-        </button>
-      </div>
-    </form>
-  `
+  template: require('./character-form.page.html'),
+  styles: [require('./character-form.page.css')],
 })
 export class RioCharacterForm {
 
@@ -97,8 +40,6 @@ export class RioCharacterForm {
   ngOnInit() {
     this.formSubs = this.ngRedux.select(state => state.form.character)
       .subscribe(characterForm => {
-        console.log('LOGGIN FORM TICK');
-        console.log(characterForm);
         this.characterForm = characterForm;
       });
     this.ngForm.valueChanges.debounceTime(0).subscribe(change => this.ngRedux.dispatch(saveForm(change)));
