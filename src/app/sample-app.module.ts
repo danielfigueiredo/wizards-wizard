@@ -17,7 +17,7 @@ import {
 } from '@angular/forms';
 import {RioSampleApp} from './sample-app';
 import {
-  RioAboutPage,
+  RioCharacterForm,
 } from '../pages';
 import {RioLoginModule} from '../components/login/login.module';
 import {RioUiModule} from '../components/ui/ui.module';
@@ -39,7 +39,7 @@ import {RioNavigatorModule} from '../components/navigator/navigator.module';
   ],
   declarations: [
     RioSampleApp,
-    RioAboutPage,
+    RioCharacterForm,
   ],
   bootstrap: [
     RioSampleApp

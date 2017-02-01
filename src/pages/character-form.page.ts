@@ -17,7 +17,7 @@ import {isFormValid} from '../selectors/character';
 import {NgForm} from '@angular/forms';
 
 @Component({
-  selector: 'rio-about-page',
+  selector: 'rio-character-form',
   template: `
     <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
       <label>Character Name:</label>
@@ -78,7 +78,7 @@ import {NgForm} from '@angular/forms';
     </form>
   `
 })
-export class RioAboutPage {
+export class RioCharacterForm {
 
   @select(isFormValid) isFormValid$;
   @ViewChild(NgForm) ngForm: NgForm;

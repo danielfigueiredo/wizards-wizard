@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
 
 import {
-  RioAboutPage
+  RioCharacterForm
 } from '../pages';
 
 export const SAMPLE_APP_ROUTES: Routes = [{
@@ -10,5 +10,5 @@ export const SAMPLE_APP_ROUTES: Routes = [{
   redirectTo: 'about'
 }, {
   path: 'about',
-  component: RioAboutPage
+  component: RioCharacterForm
 }];

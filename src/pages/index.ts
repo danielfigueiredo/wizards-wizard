@@ -1,3 +1,3 @@
-import { RioAboutPage } from './about.page';
+import { RioCharacterForm } from './character-form.page';
 
-export { RioAboutPage };
+export { RioCharacterForm };
