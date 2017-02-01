@@ -20,6 +20,7 @@ import {
   RioCharacterForm,
 } from '../pages';
 
+// TODO:
 // Something in the form module is necessary.
 // Related to rxjs. Can't seem to import it directly to our component.
 import {RioFormModule} from '../components/form/form.module';

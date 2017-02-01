@@ -7,8 +7,8 @@ import {
 export const SAMPLE_APP_ROUTES: Routes = [{
   pathMatch: 'full',
   path: '',
-  redirectTo: 'about'
+  redirectTo: 'character'
 }, {
-  path: 'about',
+  path: 'character',
   component: RioCharacterForm
 }];

@@ -2,7 +2,8 @@ import {
   Component,
   ViewChild
 } from '@angular/core';
-import {IAppState} from '../store/store';
+import { NgForm } from '@angular/forms';
+import { IAppState } from '../store/store';
 import {
   NgRedux,
   select
@@ -13,8 +14,8 @@ import {
   selectSkill,
   removeSkill
 } from '../actions/index';
-import {isFormValid} from '../selectors/character';
-import {NgForm} from '@angular/forms';
+import { isFormValid } from '../selectors/character';
+import { skills, races, alignments } from '../mocks';
 
 @Component({
   selector: 'rio-character-form',
@@ -27,13 +28,10 @@ export class RioCharacterForm {
   @ViewChild(NgForm) ngForm: NgForm;
 
   characterForm;
-  skills = ['', 'Knowledge Arcana', 'Climb', 'Perception', 'Investigation'];
-  alignments = ['Lawful Good', 'Lawful Neutral', 'Lawful Evil',
-  'Neutral Good', 'Neutral', 'Neutral Evil',
-  'Chaotic Good', 'Chaotic Neutral', 'Chaotic Evil'];
-  races = ['Elf', 'Human', 'Tiefling'];
-
   private formSubs;
+  private skills = skills;
+  private races = races;
+  private alignments = alignments;
 
   constructor(private ngRedux: NgRedux<IAppState>) {}
 
@@ -42,7 +40,10 @@ export class RioCharacterForm {
       .subscribe(characterForm => {
         this.characterForm = characterForm;
       });
-    this.ngForm.valueChanges.debounceTime(0).subscribe(change => this.ngRedux.dispatch(saveForm(change)));
+    this.ngForm.valueChanges.debounceTime(0)
+      .subscribe(change =>
+        this.ngRedux.dispatch(saveForm(change))
+      );
   }
 
   ngOnDestroy() {

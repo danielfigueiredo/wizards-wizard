@@ -21,6 +21,8 @@
     <select
       name="alignment"
       [(ngModel)]="characterForm.bioSummary.alignment">
+      <!-- TODO: Please Select component -->
+      <option *ngIf="!characterForm.bioSummary.alignment" [value]="''">Please Select</option>
       <option *ngFor="let alignment of alignments" [value]="alignment">
         {{ alignment }}
       </option>
@@ -30,6 +32,7 @@
     <select
       name="race"
       [(ngModel)]="characterForm.bioSummary.race">
+      <option *ngIf="!characterForm.bioSummary.race" [value]="''">Please Select</option>
       <option *ngFor="let race of races" [value]="race">
         {{ race }}
       </option>
