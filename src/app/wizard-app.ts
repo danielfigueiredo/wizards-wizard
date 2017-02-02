@@ -6,7 +6,7 @@ import {
   NgRedux,
 } from 'ng2-redux';
 import {NgReduxRouter} from 'ng2-redux-router';
-
+import {RioHeader} from '../components';
 import {
   IAppState,
   store

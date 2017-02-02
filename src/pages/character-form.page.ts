@@ -16,6 +16,7 @@ import {
 } from '../actions/index';
 import { isFormValid } from '../selectors/character';
 import { skills, races, alignments } from '../mocks';
+import {RioFormGroup} from '../components';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({

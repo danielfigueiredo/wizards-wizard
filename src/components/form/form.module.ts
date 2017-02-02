@@ -17,11 +17,11 @@ import {
     ReactiveFormsModule
   ],
   declarations: [
-    // RioFormGroup,
+    RioFormGroup,
     // RioFormError,
   ],
   exports: [
-    // RioFormGroup,
+    RioFormGroup,
     // RioFormError,
   ]
 })

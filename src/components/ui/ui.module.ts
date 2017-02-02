@@ -1,19 +1,16 @@
 import {NgModule}      from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RioLogo} from '../logo/logo.component';
-import {RioContainer} from '../container/container.component';
+import {RioHeader} from '../header/header';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
-    RioLogo,
-    RioContainer
+    RioHeader,
   ],
   exports: [
-    RioLogo,
-    RioContainer
+    RioHeader
   ]
 })
 export class RioUiModule { }

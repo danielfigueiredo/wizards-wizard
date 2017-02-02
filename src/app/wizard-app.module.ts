@@ -21,7 +21,7 @@ import {
 } from '../pages';
 
 import {RioFormModule} from '../components/form/form.module';
-// import {RioUiModule} from '../components/ui/ui.module';
+import {RioUiModule} from '../components/ui/ui.module';
 
 @NgModule({
   imports: [
@@ -31,7 +31,7 @@ import {RioFormModule} from '../components/form/form.module';
     routing,
     CommonModule,
     RioFormModule,
-    // RioUiModule,
+    RioUiModule,
     NgReduxModule.forRoot(),
   ],
   declarations: [
