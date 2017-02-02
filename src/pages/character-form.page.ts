@@ -16,6 +16,7 @@ import {
 } from '../actions/index';
 import { isFormValid } from '../selectors/character';
 import { skills, races, alignments } from '../mocks';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'rio-character-form',

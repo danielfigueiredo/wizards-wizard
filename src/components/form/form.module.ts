@@ -8,8 +8,6 @@ import {
 import {
   RioFormGroup,
   RioFormError,
-  RioInput,
-  RioLabel
 } from './index';
 
 @NgModule({
@@ -19,16 +17,12 @@ import {
     ReactiveFormsModule
   ],
   declarations: [
-    RioFormGroup,
-    RioFormError,
-    RioLabel,
-    RioInput
+    // RioFormGroup,
+    // RioFormError,
   ],
   exports: [
-    RioFormGroup,
-    RioFormError,
-    RioLabel,
-    RioInput
+    // RioFormGroup,
+    // RioFormError,
   ]
 })
 export class RioFormModule { }
