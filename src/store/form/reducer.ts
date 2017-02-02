@@ -9,9 +9,9 @@ const characterInitialState: ICharacter = {
   name: 'Elminster',
   bioSummary: {
     age: 230,
-    size: 'Medium',
-    alignment: 'Neutral',
-    race: 'Human',
+    size: '',
+    alignment: '',
+    race: '',
   },
   skills: ['Knowledge Arcana']
 };

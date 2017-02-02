@@ -7,7 +7,7 @@ import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {RioFormGroup} from './form-group';
 import {RioFormModule} from './form.module';
-import {RioSampleAppModule} from '../../app/sample-app.module';
+import {RioWizardAppModule} from '../../app/wizard-app.module';
 import {configureTests} from '../../tests.configure';
 
 describe('Component: Form Group', () => {

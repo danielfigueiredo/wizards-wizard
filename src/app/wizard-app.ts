@@ -6,21 +6,20 @@ import {
   NgRedux,
 } from 'ng2-redux';
 import {NgReduxRouter} from 'ng2-redux-router';
-
+import {RioHeader} from '../components';
 import {
   IAppState,
   store
 } from '../store';
 
-
 @Component({
-  selector: 'rio-sample-app',
+  selector: 'rio-wizard-app',
   // Allow app to define global styles.
   encapsulation: ViewEncapsulation.None,
   styles: [ require('../styles/index.css') ],
-  template: require('./sample-app.html')
+  template: require('./wizard-app.html')
 })
-export class RioSampleApp {
+export class RioWizardApp {
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
