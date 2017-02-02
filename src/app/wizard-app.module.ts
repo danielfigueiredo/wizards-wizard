@@ -9,13 +9,13 @@ import {NgReduxRouter} from 'ng2-redux-router';
 import {
   routing,
   appRoutingProviders
-} from './sample-app.routing';
+} from './wizard-app.routing';
 import {
   FormsModule,
   FormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
-import {RioSampleApp} from './sample-app';
+import {RioWizardApp} from './wizard-app';
 import {
   RioCharacterForm,
 } from '../pages';
@@ -38,11 +38,11 @@ import {RioFormModule} from '../components/form/form.module';
     NgReduxModule.forRoot(),
   ],
   declarations: [
-    RioSampleApp,
+    RioWizardApp,
     RioCharacterForm,
   ],
   bootstrap: [
-    RioSampleApp
+    RioWizardApp
   ],
   providers: [
     DevToolsExtension,
@@ -51,4 +51,4 @@ import {RioFormModule} from '../components/form/form.module';
     appRoutingProviders,
   ]
 })
-export class RioSampleAppModule { }
+export class RioWizardAppModule { }

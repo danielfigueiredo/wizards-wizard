@@ -2,9 +2,9 @@ import {
   Routes,
   RouterModule
 } from '@angular/router';
-import {SAMPLE_APP_ROUTES} from './sample-app.routes';
+import {WIZARD_APP_ROUTES} from './wizard-app.routes';
 
-const appRoutes: Routes = SAMPLE_APP_ROUTES;
+const appRoutes: Routes = WIZARD_APP_ROUTES;
 
 export const appRoutingProviders: any[] = [];
 

@@ -7,7 +7,7 @@ import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {RioLabel} from './label';
 import {RioFormModule} from './form.module';
-import {RioSampleAppModule} from '../../app/sample-app.module';
+import {RioWizardAppModule} from '../../app/wizard-app.module';
 import {configureTests} from '../../tests.configure';
 
 describe('Component: Label', () => {
