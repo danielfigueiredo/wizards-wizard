@@ -80,9 +80,8 @@
       <button type="button" (click)="addSkill()">Add skill</button>
     </rio-form-group>
   </fieldset>
-
   <button class="block btn btn-primary"
-    [disabled]="!(isFormValid$ | async)"
+    [disabled]="!(isFormValid$ | async) || !(isRaceAlignmentValid$ | async)"
     type="submit">
     Save
   </button>

@@ -2,17 +2,46 @@ import {Observable} from 'rxjs/Observable';
 import {combineEpics} from 'redux-observable';
 import 'rxjs/operator/filter';
 import 'rxjs/operator/map';
-import {IPayloadAction} from '../actions/index';
+import {TPayloadAction} from '../store/types';
+import {
+  TFetchRacesAligmenCompletedtAction,
+  TRacesAndAlignments
+} from '../store/wizard/types';
 
-const fetchRacesCompleted = payload => ({
-  type: 'FETCH_RACES_COMPLETED',
+const fetchRacesCompleted = (payload: TRacesAndAlignments):
+  TFetchRacesAligmenCompletedtAction => ({
+  type: 'FETCH_RACES_ALIGNMENTS_COMPLETED',
   payload
 });
 
-function fetchRacesEpic(action$: Observable<IPayloadAction>) {
-  return action$.filter(({ type }) => type === 'FETCH_RACES')
+function fetchRacesEpic(action$: Observable<TPayloadAction>):
+  Observable<TFetchRacesAligmenCompletedtAction> {
+
+  return action$.filter(({ type }) => type === 'FETCH_RACES_ALIGNMENTS')
     .map(action =>
-      fetchRacesCompleted([])
+      fetchRacesCompleted({
+        tiefling: [
+          'Chaotic Neutral',
+          'Neutral',
+          'Chaotic Evil',
+          'Neutral Evil'
+        ],
+        human: [
+          'Lawful Good',
+          'Neutral Good',
+          'Chaotic Good',
+          'Neutral',
+          'Lawful Neutral',
+          'Neutral Evil',
+          'Lawful Evil'
+        ],
+        elf: [
+          'Neutral',
+          'Neutral Good',
+          'Lawful Neutral',
+          'Lawful Good'
+        ],
+      })
     );
 }
 
