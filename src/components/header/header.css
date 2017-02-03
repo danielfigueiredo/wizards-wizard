@@ -3,3 +3,13 @@
   margin-right: 0.66em;
   width: auto;
 }
+
+.title {
+  font-weight: lighter;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.app-header {
+  box-shadow: 5px 0 5px #666;
+}
