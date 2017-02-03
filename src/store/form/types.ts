@@ -37,17 +37,19 @@ export type TSaveForm = TPathActionPayload & TValuePayload;
 
 export type TSaveAction = { type: 'SAVE_FORM', payload: TSaveForm };
 
+export type TPushIntoArrayAction = {
+  type: 'SAVE_INDEXED_FORM_VALUE',
+  payload: TPushIntoArray
+};
+
 export type TRemoveFromArrayAction = {
-  type: 'REMOVE_FROM_ARRAY',
+  type: 'REMOVE_INDEXED_FORM_VALUE',
   payload: TRemoveFromArray
 };
 
 export type TUpdateInArrayAction = {
-  type: 'UPDATE_IN_ARRAY',
+  type: 'UPDATE_INDEXED_FORM_VALUE',
   payload: TUpdateInArray
 };
 
-export type TPushIntoArrayAction = {
-  type: 'PUSH_INTO_ARRAY',
-  payload: TPushIntoArray
-};
+

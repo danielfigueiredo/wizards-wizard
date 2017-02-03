@@ -4,25 +4,25 @@ import {
   IForm,
   formReducer
 } from './form';
-import {wizardReducer} from './wizard/reducer';
-import {IWizard} from './wizard/types';
+import {rulesReducer} from './rules/reducer';
+import {IRules} from './rules/types';
 
 export interface IAppState {
   form?: IForm;
-  wizard?: IWizard;
+  rules?: IRules;
 };
 
 export const rootReducer = combineReducers<IAppState>({
   router: routerReducer,
   form: formReducer,
-  wizard: wizardReducer,
+  rules: rulesReducer,
 });
 
 export function deimmutify(store) {
   return {
     router: store.router,
     form: store.form,
-    wizard: store.wizard,
+    rules: store.rules,
   };
 }
 
@@ -30,6 +30,6 @@ export function reimmutify(plain) {
   return {
     router: plain.router,
     form: plain.form,
-    wizard: plain.wizard,
+    rules: plain.rules,
   };
 }

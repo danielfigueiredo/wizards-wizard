@@ -2,7 +2,7 @@ import {createSelector} from 'reselect';
 import {formStateSelector} from './form';
 import {IForm} from '../store/form/types';
 import {IAppState} from '../store/store';
-import {IWizard} from '../store/wizard/types';
+import {IRules} from '../store/rules/types';
 
 const characterFormSelector = createSelector(
   formStateSelector,
@@ -17,13 +17,14 @@ export const isFormValid = createSelector(
     && character.skills.length > 0
 );
 
-const wizardSelector = (state: IAppState) => {
-  return state.wizard;
+// TODO: Move this to its own file
+const rulesSelector = (state: IAppState) => {
+  return state.rules;
 };
 
 const raceAlignmentSelector = createSelector(
-  wizardSelector,
-  (wizard: IWizard) => wizard.racesAndAlignments
+  rulesSelector,
+  (rules: IRules) => rules.racesAndAlignments
 );
 
 export const isRaceAlignmentValid = createSelector(

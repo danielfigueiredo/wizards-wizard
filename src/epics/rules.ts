@@ -4,18 +4,18 @@ import 'rxjs/operator/filter';
 import 'rxjs/operator/map';
 import {TPayloadAction} from '../store/types';
 import {
-  TFetchRacesAligmenCompletedtAction,
+  TFetchRacesAligmentCompletedAction,
   TRacesAndAlignments
-} from '../store/wizard/types';
+} from '../store/rules/types';
 
 const fetchRacesCompleted = (payload: TRacesAndAlignments):
-  TFetchRacesAligmenCompletedtAction => ({
+  TFetchRacesAligmentCompletedAction => ({
   type: 'FETCH_RACES_ALIGNMENTS_COMPLETED',
   payload
 });
 
 function fetchRacesEpic(action$: Observable<TPayloadAction>):
-  Observable<TFetchRacesAligmenCompletedtAction> {
+  Observable<TFetchRacesAligmentCompletedAction> {
 
   return action$.filter(({ type }) => type === 'FETCH_RACES_ALIGNMENTS')
     .map(action =>

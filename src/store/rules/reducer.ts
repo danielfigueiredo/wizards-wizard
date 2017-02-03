@@ -1,8 +1,8 @@
 import {TPayloadAction} from '../types';
-import {IWizard} from './types';
+import {IRules} from './types';
 import {merge} from 'ramda';
 
-const initialState: IWizard = {
+const initialState: IRules = {
   racesAndAlignments: {
     tiefling: [],
     human: [],
@@ -10,7 +10,7 @@ const initialState: IWizard = {
   }
 };
 
-export function wizardReducer(state = initialState, action: TPayloadAction) {
+export function rulesReducer(state = initialState, action: TPayloadAction) {
   switch (action.type) {
   case 'FETCH_RACES_ALIGNMENTS_COMPLETED':
     return merge(

@@ -6,9 +6,9 @@ export type TRacesAndAlignments = {
   elf: string[];
 };
 
-export type TFetchRacesAligmenCompletedtAction =
+export type TFetchRacesAligmentCompletedAction =
   { type: 'FETCH_RACES_ALIGNMENTS_COMPLETED', payload: TRacesAndAlignments };
 
-export interface IWizard {
+export interface IRules {
   racesAndAlignments: TRacesAndAlignments;
 }

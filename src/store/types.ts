@@ -6,8 +6,8 @@ import {
 } from './form/types';
 import {
   TFetchRacesAligmentAction,
-  TFetchRacesAligmenCompletedtAction
-} from './wizard/types';
+  TFetchRacesAligmentCompletedAction
+} from './rules/types';
 
 export type TPayloadAction =
     TPushIntoArrayAction
@@ -15,5 +15,5 @@ export type TPayloadAction =
   | TRemoveFromArrayAction
   | TSaveAction
   | TFetchRacesAligmentAction
-  | TFetchRacesAligmenCompletedtAction
+  | TFetchRacesAligmentCompletedAction
   ;

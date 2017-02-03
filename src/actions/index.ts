@@ -5,7 +5,7 @@ import {
   TSaveForm
 } from '../store/form/types';
 import {TPayloadAction} from '../store/types';
-import {TFetchRacesAligmentAction} from '../store/wizard/types';
+import {TFetchRacesAligmentAction} from '../store/rules/types';
 
 export const saveForm = ({path, value}: TSaveForm): TPayloadAction => ({
   type: 'SAVE_FORM',
@@ -17,7 +17,7 @@ export const saveForm = ({path, value}: TSaveForm): TPayloadAction => ({
 
 export const addIntoArray = ({path , value}: TValuePayload):
   TPayloadAction => ({
-  type: 'PUSH_INTO_ARRAY',
+  type: 'SAVE_INDEXED_FORM_VALUE',
   payload: {
     path,
     value
@@ -26,7 +26,7 @@ export const addIntoArray = ({path , value}: TValuePayload):
 
 export const putInArray = ({value, index, path}: TUpdateInArray):
   TPayloadAction => ({
-  type: 'UPDATE_IN_ARRAY',
+  type: 'UPDATE_INDEXED_FORM_VALUE',
   payload: {
     path,
     value,
@@ -36,7 +36,7 @@ export const putInArray = ({value, index, path}: TUpdateInArray):
 
 export const removeFromArray = ({index, path}: TIndexPayload):
   TPayloadAction => ({
-  type: 'REMOVE_FROM_ARRAY',
+  type: 'REMOVE_INDEXED_FORM_VALUE',
   payload: {
     index,
     path

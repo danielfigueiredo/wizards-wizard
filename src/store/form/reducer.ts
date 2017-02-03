@@ -16,23 +16,53 @@ import {
   merge
 } from 'ramda';
 import {TPayloadAction} from '../types';
+import {initialState} from './initial-state';
 
-const characterInitialState: ICharacter = {
-  name: 'Elminster',
-  bioSummary: {
-    age: 230,
-    size: '',
-    alignment: '',
-    race: '',
-  },
-  skills: ['Knowledge Arcana']
-};
+export function formReducer(state = initialState, action: TPayloadAction) {
+  switch (action.type) {
+  case 'SAVE_FORM':
+    return formStateReducer(state, action);
+  case 'SAVE_INDEXED_FORM_VALUE':
+  case 'REMOVE_INDEXED_FORM_VALUE':
+  case 'UPDATE_INDEXED_FORM_VALUE':
+    return arrayReducer(state, action);
+  default:
+    return state;
+  }
+}
 
-const initialState: IForm = {
-  character: characterInitialState
-};
+function arrayReducer(state: IForm, action: TPayloadAction) {
+  switch (action.type) {
+  case 'SAVE_INDEXED_FORM_VALUE':
+    return addIndexedFormValue(state, action);
+  case 'REMOVE_INDEXED_FORM_VALUE':
+    return removeIndexedFormValue(state, action);
+  case 'UPDATE_INDEXED_FORM_VALUE':
+    return updateIndexedFormValue(state, action);
+  default:
+    return state;
+  }
+}
 
-function addIntoArray(state: IForm, action: TPushIntoArrayAction) {
+function formStateReducer(state: IForm, action: TPayloadAction) {
+  switch (action.type) {
+  case 'SAVE_FORM':
+    return saveForm(state, action);
+  default:
+    return state;
+  }
+}
+
+function saveForm(state: IForm, action: TSaveAction) {
+  const lensForProp = lensPath(action.payload.path);
+  return assocPath(
+    action.payload.path,
+    merge(view(lensForProp, state), action.payload.value),
+    state
+  );
+}
+
+function addIndexedFormValue(state: IForm, action: TPushIntoArrayAction) {
   const lensForProp = lensPath(action.payload.path);
   const propValue = <any[]> view(lensForProp, state);
   return assocPath(
@@ -42,7 +72,7 @@ function addIntoArray(state: IForm, action: TPushIntoArrayAction) {
   );
 }
 
-function removeFromArray(state: IForm, action: TRemoveFromArrayAction) {
+function removeIndexedFormValue(state: IForm, action: TRemoveFromArrayAction) {
   const lensForProp = lensPath(action.payload.path);
   const propValue = <any[]> view(lensForProp, state);
   return assocPath(
@@ -56,7 +86,7 @@ function removeFromArray(state: IForm, action: TRemoveFromArrayAction) {
   );
 }
 
-function putIntoArray(state: IForm, action: TUpdateInArrayAction) {
+function updateIndexedFormValue(state: IForm, action: TUpdateInArrayAction) {
   const lensForProp = lensPath(action.payload.path);
   const propValue = <any[]> view(lensForProp, state);
   return assocPath(
@@ -68,48 +98,4 @@ function putIntoArray(state: IForm, action: TUpdateInArrayAction) {
     ),
     state
   );
-}
-
-function arrayReducer(state: IForm, action: TPayloadAction) {
-  switch (action.type) {
-  case 'PUSH_INTO_ARRAY':
-    return addIntoArray(state, action);
-  case 'REMOVE_FROM_ARRAY':
-    return removeFromArray(state, action);
-  case 'UPDATE_IN_ARRAY':
-    return putIntoArray(state, action);
-  default:
-    return state;
-  }
-}
-
-function performSave(state: IForm, action: TSaveAction) {
-  const lensForProp = lensPath(action.payload.path);
-  return assocPath(
-    action.payload.path,
-    merge(view(lensForProp, state), action.payload.value),
-    state
-  );
-}
-
-function formStateReducer(state: IForm, action: TPayloadAction) {
-  switch (action.type) {
-  case 'SAVE_FORM':
-    return performSave(state, action);
-  default:
-    return state;
-  }
-}
-
-export function formReducer(state = initialState, action: TPayloadAction) {
-  switch (action.type) {
-  case 'SAVE_FORM':
-    return formStateReducer(state, action);
-  case 'PUSH_INTO_ARRAY':
-  case 'REMOVE_FROM_ARRAY':
-  case 'UPDATE_IN_ARRAY':
-    return arrayReducer(state, action);
-  default:
-    return state;
-  }
 }
