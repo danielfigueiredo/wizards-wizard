@@ -1,25 +1,48 @@
-import {Action} from 'redux';
+import {
+  TValuePayload,
+  TUpdateInArray,
+  TIndexPayload,
+  TSaveForm
+} from '../store/form/types';
+import {TPayloadAction} from '../store/types';
+import {TFetchRacesAligmentAction} from '../store/rules/types';
 
-export interface IPayloadAction extends Action {
-  payload?: any;
-}
-
-export const saveForm = (form) => ({
+export const saveForm = ({path, value}: TSaveForm): TPayloadAction => ({
   type: 'SAVE_FORM',
-  payload: form
+  payload: {
+    path,
+    value
+  }
 });
 
-export const addSkill = () => ({ type: 'ADD_SKILL' });
-
-export const selectSkill = (skill, index) => ({
-  type: 'SELECT_SKILL',
+export const addIntoArray = ({path , value}: TValuePayload):
+  TPayloadAction => ({
+  type: 'SAVE_INDEXED_FORM_VALUE',
   payload: {
-    skill,
+    path,
+    value
+  }
+});
+
+export const putInArray = ({value, index, path}: TUpdateInArray):
+  TPayloadAction => ({
+  type: 'UPDATE_INDEXED_FORM_VALUE',
+  payload: {
+    path,
+    value,
     index
   }
 });
 
-export const removeSkill = index => ({
-  type: 'REMOVE_SKILL',
-  payload: index
+export const removeFromArray = ({index, path}: TIndexPayload):
+  TPayloadAction => ({
+  type: 'REMOVE_INDEXED_FORM_VALUE',
+  payload: {
+    index,
+    path
+  }
+});
+
+export const fetchRacesAndAlignments = (): TFetchRacesAligmentAction => ({
+  type: 'FETCH_RACES_ALIGNMENTS'
 });

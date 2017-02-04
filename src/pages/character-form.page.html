@@ -1,6 +1,6 @@
 <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
   <label for="name">Character Name:</label>
-  <input
+  <input class="input"
     type="text"
     name="name"
     #characterModel="ngModel"
@@ -9,7 +9,7 @@
   <fieldset ngModelGroup="bioSummary" class="my3">
     <rio-form-group>
       <label for="age">Age:</label>
-      <input
+      <input class="input"
         type="number"
         name="age"
         [(ngModel)]="characterForm.bioSummary.age">
@@ -39,7 +39,7 @@
 
     <rio-form-group>
       <label for="alignment">Alignment:</label>
-      <select
+      <select class="select"
         name="alignment"
         [(ngModel)]="characterForm.bioSummary.alignment">
         <option *ngIf="!characterForm.bioSummary.alignment" [value]="''">Please Select</option>
@@ -51,7 +51,7 @@
 
     <rio-form-group>
       <label for="race">Race:</label>
-      <select
+      <select class="select"
         name="race"
         [(ngModel)]="characterForm.bioSummary.race">
         <option *ngIf="!characterForm.bioSummary.race" [value]="''">Please Select</option>
@@ -66,7 +66,7 @@
     <rio-form-group>
       <label for="skills">Skills:</label>
       <div *ngFor="let cs of characterForm.skills; let i = index;">
-        <select
+        <select class="select"
           [value]="cs"
           (change)="onSelectSkill($event, i)">
           <option *ngIf="!cs" value="">Please Select</option>
@@ -80,9 +80,8 @@
       <button type="button" (click)="addSkill()">Add skill</button>
     </rio-form-group>
   </fieldset>
-
   <button class="block btn btn-primary"
-    [disabled]="!(isFormValid$ | async)"
+    [disabled]="!(isFormValid$ | async) || !(isRaceAlignmentValid$ | async)"
     type="submit">
     Save
   </button>
