@@ -4,14 +4,14 @@ import {
 } from './types';
 
 export const characterInitialState: ICharacter = {
-  name: 'Elminster',
+  name: undefined,
   bioSummary: {
-    age: 230,
-    size: '',
-    alignment: '',
-    race: '',
+    age: undefined,
+    size: undefined,
+    alignment: undefined,
+    race: undefined,
   },
-  skills: ['Knowledge Arcana']
+  skills: []
 };
 
 export const initialState: IForm = {

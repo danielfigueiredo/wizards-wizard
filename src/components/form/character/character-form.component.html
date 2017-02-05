@@ -1,0 +1,183 @@
+<form (ngSubmit)="onSubmit.emit(form.value)" #form="ngForm">
+  <label for="name">Character Name:</label>
+  <input
+    id="name"
+    class="input field"
+    type="text"
+    name="name"
+    #nameModel="ngModel"
+    [ngClass]="{
+      'is-error': !isNameValid && !nameModel.control.pristine,
+      'is-success': isNameValid
+    }"
+    [(ngModel)]="characterForm.name">
+  <div
+    [hidden]="isNameValid || nameModel.control.pristine"
+    class="bold center p1 white bg-red rounded">
+    Name must be between 3 and 50 characters
+  </div>
+  <fieldset ngModelGroup="bioSummary" class="my3">
+    <rio-form-group>
+      <label for="size">Size:</label>
+      <input
+        id="size"
+        type="radio"
+        name="size"
+        [(ngModel)]="characterForm.bioSummary.size"
+        value="Small"> Small
+
+      <input
+        type="radio"
+        name="size"
+        [(ngModel)]="characterForm.bioSummary.size"
+        value="Medium"> Medium
+
+      <input
+        type="radio"
+        name="size"
+        [(ngModel)]="characterForm.bioSummary.size"
+        value="Large"> Large
+
+    </rio-form-group>
+
+    <rio-form-group>
+      <label for="race">Race:</label>
+      <select
+        id="race"
+        class="select field"
+        name="race"
+        #raceModel="ngModel"
+        [ngClass]="{
+          'is-error': !characterForm.bioSummary.race && raceModel.control.touched,
+          'is-success': characterForm.bioSummary.race
+        }"
+        [(ngModel)]="characterForm.bioSummary.race">
+        <option [value]="''">
+          Please Select
+        </option>
+        <option *ngFor="let race of races" [value]="race">
+          {{ race }}
+        </option>
+      </select>
+    </rio-form-group>
+
+    <rio-form-group>
+      <label for="alignment">Alignment:</label>
+      <select
+        id="alignment"
+        class="select field"
+        name="alignment"
+        #alignmentModel="ngModel"
+        [ngClass]="{
+          'is-error': !isRaceAlignmentValid && alignmentModel.control.touched,
+          'is-success': isRaceAlignmentValid
+        }"
+        [(ngModel)]="characterForm.bioSummary.alignment">
+        <option [value]="''">
+          Please Select
+        </option>
+        <option *ngFor="let alignment of alignments" [value]="alignment">
+          {{ alignment }}
+        </option>
+      </select>
+      <div
+        [hidden]="isRaceAlignmentValid
+          || !alignmentModel.control.touched
+          || !characterForm.bioSummary.alignment"
+        class="bold center p1 white bg-red rounded">
+        <span [hidden]="characterForm.bioSummary.race">
+          You need a Race to define your alignment
+        </span>
+        <div [ngSwitch]="characterForm.bioSummary.race">
+          <span *ngSwitchCase="'Elf'">
+            Elves can only be Neutral, Good, and Lawful
+          </span>
+          <span *ngSwitchCase="'Human'">
+            No chaotic evil Humans please!
+          </span>
+          <span *ngSwitchCase="'Tiefling'">
+            Tieflings can only be Neutral, Evil, and Chaotic
+          </span>
+        </div>
+      </div>
+    </rio-form-group>
+
+    <rio-form-group>
+      <label for="age">Age:</label>
+      <input
+        id="age"
+        class="input field"
+        type="number"
+        name="age"
+        #ageModel="ngModel"
+        [ngClass]="{
+          'is-error': !isAgeValid && !ageModel.control.pristine,
+          'is-success': isAgeValid
+        }"
+        [(ngModel)]="characterForm.bioSummary.age">
+      <div
+        [hidden]="isAgeValid || ageModel.control.pristine"
+        class="bold center p1 white bg-red rounded">
+        <div [ngSwitch]="characterForm.bioSummary.race">
+          <span *ngSwitchCase="'Elf'">
+            Elves becomes adults at 80 and can't be older then 800
+          </span>
+          <span *ngSwitchCase="'Human'">
+            Humans becomes adults at 14 and can't be older then 40
+          </span>
+          <span *ngSwitchCase="'Tiefling'">
+            Tieflings becomes adults at 35 and can't be older then 53
+          </span>
+        </div>
+      </div>
+    </rio-form-group>
+  </fieldset>
+
+  <fieldset class="my3">
+    <rio-form-group>
+      <label for="skills">Skills:</label>
+      <div
+        id="skills"
+        class="flex"
+        *ngFor="let cs of characterForm.skills; let i = index;">
+        <select
+          class="flex-auto select"
+          [value]="cs"
+          (change)="onSelectSkill.emit({event: $event, index: i})">
+          <option *ngIf="!cs" value="">Please Select</option>
+          <option *ngFor="let skill of skills" [value]="skill">
+            {{ skill }}
+          </option>
+        </select>
+        <button
+          class="flex-shrink block btn btn-primary mb2 ml1 px1"
+          type="button"
+          (click)="removeSkill.emit(i)">
+          Remove
+        </button>
+      </div>
+      <div
+        *ngIf="!isSkillsValid && characterForm.skills.length === 0"
+        class="bold center p1 my1 white bg-yellow rounded">
+        I have never seen a unskilled Wizard
+      </div>
+      <div
+        *ngIf="!isSkillsValid && characterForm.skills.length > 0"
+        class="bold center p1 my1 white bg-red rounded">
+        Please select a skill you like
+      </div>
+      <button
+        class="block btn btn-primary"
+        type="button"
+        (click)="addSkill.emit()">
+        Add skill
+      </button>
+    </rio-form-group>
+  </fieldset>
+  <button
+    class="block btn btn-primary mb1"
+    [disabled]="!isFormValid"
+    type="submit">
+    Save
+  </button>
+</form>

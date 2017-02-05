@@ -7,8 +7,8 @@ import {
 
 import {
   RioFormGroup,
-  RioFormError,
 } from './index';
+import {RioCharacterFormComponent} from './character/character-form.component';
 
 @NgModule({
   imports: [
@@ -18,11 +18,11 @@ import {
   ],
   declarations: [
     RioFormGroup,
-    // RioFormError,
+    RioCharacterFormComponent,
   ],
   exports: [
     RioFormGroup,
-    // RioFormError,
+    RioCharacterFormComponent,
   ]
 })
 export class RioFormModule { }

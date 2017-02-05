@@ -1,5 +1,4 @@
 import {
-  ICharacter,
   IForm,
   TSaveAction,
   TRemoveFromArrayAction,

@@ -24,6 +24,7 @@
 @import 'basscss-position';
 @import 'basscss-border';
 @import 'basscss-hide';
+@import 'basscss-color-forms';
 
 .app-container {
   margin: 0 auto;

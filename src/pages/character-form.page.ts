@@ -2,8 +2,7 @@ import {
   Component,
   ViewChild
 } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { IAppState } from '../store/store';
+import {IAppState} from '../store/store';
 import {
   NgRedux,
   select
@@ -16,8 +15,11 @@ import {
   fetchRacesAndAlignments
 } from '../actions/index';
 import {
-  isFormValid,
-  isRaceAlignmentValid
+  isFormValidSelector,
+  isRaceAlignmentValidSelector,
+  isAgeValidSelector,
+  isNameValidSelector,
+  isSkillsValidSelector
 } from '../selectors/character';
 import {
   skills,
@@ -25,11 +27,12 @@ import {
   alignments
 } from '../mocks';
 import 'rxjs/add/operator/debounceTime';
+import {RioCharacterFormComponent} from
+  '../components/form/character/character-form.component';
+import {Observable} from 'rxjs';
 
 @Component({
-  selector: 'rio-character-form',
   template: require('./character-form.page.html'),
-  styles: [require('./character-form.page.css')],
 })
 export class RioCharacterForm {
 
@@ -40,9 +43,19 @@ export class RioCharacterForm {
     RioCharacterForm.SKILLS_FIELD
   ];
 
-  @select(isRaceAlignmentValid) isRaceAlignmentValid$;
-  @select(isFormValid) isFormValid$;
-  @ViewChild(NgForm) ngForm: NgForm;
+  @select(isRaceAlignmentValidSelector)
+  isRaceAlignmentValid$: Observable<boolean>;
+  @select(isFormValidSelector)
+  isFormValid$: Observable<boolean>;
+  @select(isAgeValidSelector)
+  isAgeValid$: Observable<boolean>;
+  @select(isNameValidSelector)
+  isNameValid$: Observable<boolean>;
+  @select(isSkillsValidSelector)
+  isSkillsValid$: Observable<boolean>;
+
+  @ViewChild(RioCharacterFormComponent)
+  characterFormComponent: RioCharacterFormComponent;
 
   characterForm;
   private formSubs;
@@ -58,7 +71,7 @@ export class RioCharacterForm {
       .subscribe(characterForm => {
         this.characterForm = characterForm;
       });
-    this.ngForm.valueChanges.debounceTime(0)
+    this.characterFormComponent.ngForm.valueChanges.debounceTime(0)
       .subscribe(change =>
         this.ngRedux.dispatch(
           saveForm({
@@ -73,7 +86,7 @@ export class RioCharacterForm {
     this.formSubs.unsubscribe();
   }
 
-  onSelectSkill(event, index) {
+  onSelectSkill({event, index}) {
     const skill = event.target.value;
     this.ngRedux.dispatch(
       putInArray({
