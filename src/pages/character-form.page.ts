@@ -9,6 +9,7 @@ import {
 } from 'ng2-redux';
 import {
   saveForm,
+  resetForm,
   putInArray,
   addIntoArray,
   removeFromArray,
@@ -99,6 +100,12 @@ export class RioCharacterForm {
 
   onSubmit(form) {
     // save on backend
+  }
+
+  onReset() {
+    this.ngRedux.dispatch(
+      resetForm({ path: [RioCharacterForm.FORM_NAME] })
+    );
   }
 
   addSkill() {

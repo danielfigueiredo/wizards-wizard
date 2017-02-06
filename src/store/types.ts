@@ -1,5 +1,6 @@
 import {
   TSaveAction,
+  TResetAction,
   TRemoveFromArrayAction,
   TUpdateInArrayAction,
   TPushIntoArrayAction
@@ -14,6 +15,7 @@ export type TPayloadAction =
   | TUpdateInArrayAction
   | TRemoveFromArrayAction
   | TSaveAction
+  | TResetAction
   | TFetchRacesAligmentAction
   | TFetchRacesAligmentCompletedAction
   ;

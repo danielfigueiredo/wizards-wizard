@@ -1,6 +1,7 @@
 import {
   IForm,
   TSaveAction,
+  TResetAction,
   TRemoveFromArrayAction,
   TUpdateInArrayAction,
   TPushIntoArrayAction
@@ -20,6 +21,7 @@ import {initialState} from './initial-state';
 export function formReducer(state = initialState, action: TPayloadAction) {
   switch (action.type) {
   case 'SAVE_FORM':
+  case 'RESET_FORM':
     return formStateReducer(state, action);
   case 'SAVE_INDEXED_FORM_VALUE':
   case 'REMOVE_INDEXED_FORM_VALUE':
@@ -47,6 +49,8 @@ function formStateReducer(state: IForm, action: TPayloadAction) {
   switch (action.type) {
   case 'SAVE_FORM':
     return saveForm(state, action);
+  case 'RESET_FORM':
+    return resetForm(state, action);
   default:
     return state;
   }
@@ -57,6 +61,15 @@ function saveForm(state: IForm, action: TSaveAction) {
   return assocPath(
     action.payload.path,
     merge(view(lensForProp, state), action.payload.value),
+    state
+  );
+}
+
+function resetForm(state: IForm, action: TResetAction) {
+  const lensForProp = lensPath(action.payload.path);
+  return assocPath(
+    action.payload.path,
+    merge(view(lensForProp, state), view(lensForProp, initialState)),
     state
   );
 }
