@@ -174,10 +174,17 @@
       </button>
     </rio-form-group>
   </fieldset>
+
   <button
     class="block btn btn-primary mb1"
     [disabled]="!isFormValid"
     type="submit">
     Save
+  </button>
+  <button
+    class="block btn btn-secondary mb1"
+    type="button"
+    (click)="onReset.emit()">
+    Reset
   </button>
 </form>

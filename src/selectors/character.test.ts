@@ -41,7 +41,7 @@ describe('Character selector tests', () => {
           ],
         }
       }
-    })
+    });
     initialTestState.form.character = {
       name: 'Elminster',
       bioSummary: {

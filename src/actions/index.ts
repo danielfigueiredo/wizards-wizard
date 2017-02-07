@@ -2,7 +2,8 @@ import {
   TValuePayload,
   TUpdateInArray,
   TIndexPayload,
-  TSaveForm
+  TSaveForm,
+  TResetForm
 } from '../store/form/types';
 import {TPayloadAction} from '../store/types';
 import {TFetchRacesAligmentAction} from '../store/rules/types';
@@ -12,6 +13,13 @@ export const saveForm = ({path, value}: TSaveForm): TPayloadAction => ({
   payload: {
     path,
     value
+  }
+});
+
+export const resetForm = ({path}: TResetForm): TPayloadAction => ({
+  type: 'RESET_FORM',
+  payload: {
+    path
   }
 });
 
