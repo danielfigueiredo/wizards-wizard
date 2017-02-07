@@ -12,12 +12,7 @@ import {
   IRules
 } from './rules';
 
-
-export interface IAppState {
-  form?: IForm;
-  rules?: IRules;
-};
-
+export { IAppState } from '../store';
 export * from './character';
 export * from './equipment';
 export * from './rules';

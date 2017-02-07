@@ -27,21 +27,19 @@ import {
   races,
   alignments
 } from '../mocks';
-import 'rxjs/add/operator/debounceTime';
-import {RioCharacterFormComponent} from
-  '../components/form/character/character-form.component';
+import {RioCharacterForm} from '../components';
 import {Observable} from 'rxjs';
 
 @Component({
   template: require('./character-form.page.html'),
 })
-export class RioCharacterForm {
+export class RioCharacterPage {
 
   private static FORM_NAME = 'character';
   private static SKILLS_FIELD = 'skills';
   private static SKILL_FIELD_PATH = [
-    RioCharacterForm.FORM_NAME,
-    RioCharacterForm.SKILLS_FIELD
+    RioCharacterPage.FORM_NAME,
+    RioCharacterPage.SKILLS_FIELD
   ];
 
   @select(isRaceAlignmentValidSelector)
@@ -55,8 +53,8 @@ export class RioCharacterForm {
   @select(isSkillsValidSelector)
   isSkillsValid$: Observable<boolean>;
 
-  @ViewChild(RioCharacterFormComponent)
-  characterFormComponent: RioCharacterFormComponent;
+  @ViewChild(RioCharacterForm)
+  formComponent: RioCharacterForm;
 
   characterForm;
   private formSubs;
@@ -72,12 +70,12 @@ export class RioCharacterForm {
       .subscribe(characterForm => {
         this.characterForm = characterForm;
       });
-    this.characterFormComponent.ngForm.valueChanges.debounceTime(0)
+    this.formComponent.ngForm.valueChanges.debounceTime(0)
       .subscribe(change =>
         this.ngRedux.dispatch(
           saveForm({
             value: change,
-            path: [RioCharacterForm.FORM_NAME]
+            path: [RioCharacterPage.FORM_NAME]
           })
         )
       );
@@ -93,7 +91,7 @@ export class RioCharacterForm {
       putInArray({
         value: skill,
         index,
-        path: RioCharacterForm.SKILL_FIELD_PATH
+        path: RioCharacterPage.SKILL_FIELD_PATH
       })
     );
   }
@@ -104,14 +102,14 @@ export class RioCharacterForm {
 
   onReset() {
     this.ngRedux.dispatch(
-      resetForm({ path: [RioCharacterForm.FORM_NAME] })
+      resetForm({ path: [RioCharacterPage.FORM_NAME] })
     );
   }
 
   addSkill() {
     this.ngRedux.dispatch(
       addIntoArray({
-        path: RioCharacterForm.SKILL_FIELD_PATH,
+        path: RioCharacterPage.SKILL_FIELD_PATH,
         value: undefined
       })
     );
@@ -121,7 +119,7 @@ export class RioCharacterForm {
     this.ngRedux.dispatch(
       removeFromArray({
         index,
-        path: RioCharacterForm.SKILL_FIELD_PATH
+        path: RioCharacterPage.SKILL_FIELD_PATH
       })
     );
   }

@@ -8,7 +8,7 @@ import {
   select
 } from 'ng2-redux';
 import { Observable } from 'rxjs';
-import { RioFormGroup } from '../components';
+import { RioEquipmentForm } from '../components';
 import {
   saveForm
 } from '../actions';
@@ -20,11 +20,12 @@ import {
 @Component({
   template: require('./equipment-form.page.html'),
 })
-export class RioEquipmentForm {
+export class RioEquipmentPage {
   equipmentForm: IEquipment;
   private formSub;
   private static FORM_NAME: 'equipment';
-  @ViewChild(NgForm) ngForm: NgForm;
+  @ViewChild(RioEquipmentForm)
+  formComponent: RioEquipmentForm;
 
   constructor(private ngRedux: NgRedux<IAppState>) {}
 
@@ -33,7 +34,7 @@ export class RioEquipmentForm {
       .subscribe(form => {
         this.equipmentForm = form;
       });
-    this.ngForm.valueChanges.debounceTime(0)
+    this.formComponent.ngForm.valueChanges.debounceTime(0)
       .subscribe(change =>
         this.ngRedux.dispatch(
           saveForm({
@@ -46,5 +47,13 @@ export class RioEquipmentForm {
 
   ngOnDestroy() {
     this.formSub.unsubscribe();
+  }
+
+  onSubmit(form) {
+    // TODO
+  }
+
+  onReset() {
+    // TODO
   }
 }

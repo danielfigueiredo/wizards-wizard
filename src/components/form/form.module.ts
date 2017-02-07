@@ -7,8 +7,9 @@ import {
 
 import {
   RioFormGroup,
+  RioCharacterForm,
+  RioEquipmentForm
 } from './index';
-import {RioCharacterFormComponent} from './character/character-form.component';
 
 @NgModule({
   imports: [
@@ -18,11 +19,13 @@ import {RioCharacterFormComponent} from './character/character-form.component';
   ],
   declarations: [
     RioFormGroup,
-    RioCharacterFormComponent,
+    RioCharacterForm,
+    RioEquipmentForm
   ],
   exports: [
     RioFormGroup,
-    RioCharacterFormComponent,
+    RioCharacterForm,
+    RioEquipmentForm
   ]
 })
 export class RioFormModule { }
