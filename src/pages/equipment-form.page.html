@@ -1,1 +1,59 @@
 <h2>Equipment</h2>
+
+<form (ngSubmit)="onSubmit.emit(form.value)" #form="ngForm">
+  <label>Weapon Name</label>
+  <input id="weaponName"
+    name="weaponName"
+    class="input field"
+    type="text"
+    [(ngModel)]="equipmentForm.weaponName">
+
+  <rio-form-group>
+    <label for="weaponType">Weapon Type:</label>
+    <input
+      type="radio"
+      name="weaponType"
+      [(ngModel)]="equipmentForm.weaponType"
+      value="Slashing"> Slashing
+
+    <input
+      type="radio"
+      name="weaponType"
+      [(ngModel)]="equipmentForm.weaponType"
+      value="Piercing"> Piercing
+
+    <input
+      type="radio"
+      name="weaponType"
+      [(ngModel)]="equipmentForm.weaponType"
+      value="Crushing"> Crushing
+  </rio-form-group>
+
+  <rio-form-group>
+    <label for="armorType">Armor Type:</label>
+    <input
+      type="radio"
+      name="armorType"
+      [(ngModel)]="equipmentForm.armorType"
+      value="Cloth"> Cloth
+
+    <input
+      type="radio"
+      name="armorType"
+      [(ngModel)]="equipmentForm.armorType"
+      value="Leather"> Leather
+
+    <input
+      type="radio"
+      name="armorType"
+      [(ngModel)]="equipmentForm.armorType"
+      value="Mail"> Mail
+
+    <input
+      type="radio"
+      name="armorType"
+      [(ngModel)]="equipmentForm.armorType"
+      value="Plate"> Plate
+  </rio-form-group>
+
+</form>

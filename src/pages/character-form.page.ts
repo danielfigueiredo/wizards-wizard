@@ -2,7 +2,7 @@ import {
   Component,
   ViewChild
 } from '@angular/core';
-import {IAppState} from '../store/store';
+import {IAppState} from '../store/types';
 import {
   NgRedux,
   select

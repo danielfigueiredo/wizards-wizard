@@ -1,5 +1,5 @@
+import { IAppState } from './types';
 import {
-  IAppState,
   rootReducer,
   deimmutify,
   reimmutify
@@ -54,4 +54,4 @@ const finalCreateStore = <Redux.StoreEnhancerStoreCreator<IAppState>>
   )(createStore);
 
 export const store = finalCreateStore(rootReducer, {});
-export {IAppState} from './store';
+export {IAppState} from './types';

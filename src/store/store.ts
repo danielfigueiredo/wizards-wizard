@@ -2,12 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'ng2-redux-router';
 import { formReducer } from './form';
 import { rulesReducer } from './rules/reducer';
-import { IForm, IRules} from './types';
-
-export interface IAppState {
-  form?: IForm;
-  rules?: IRules;
-};
+import { IAppState } from './types';
 
 export const rootReducer = combineReducers<IAppState>({
   router: routerReducer,

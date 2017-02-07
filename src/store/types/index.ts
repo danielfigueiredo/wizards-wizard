@@ -3,12 +3,20 @@ import {
   TResetAction,
   TRemoveFromArrayAction,
   TUpdateInArrayAction,
-  TPushIntoArrayAction
+  TPushIntoArrayAction,
+  IForm,
 } from './form';
 import {
   TFetchRacesAligmentAction,
-  TFetchRacesAligmentCompletedAction
+  TFetchRacesAligmentCompletedAction,
+  IRules
 } from './rules';
+
+
+export interface IAppState {
+  form?: IForm;
+  rules?: IRules;
+};
 
 export * from './character';
 export * from './equipment';

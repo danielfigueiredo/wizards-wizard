@@ -4,9 +4,9 @@ import {
   IForm,
   ICharacter,
   IBioSummary,
-  IRules
+  IRules,
+  IAppState
 } from '../store/types';
-import {IAppState} from '../store/store';
 import {
   isEmpty,
   gte,
