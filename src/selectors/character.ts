@@ -3,10 +3,10 @@ import {formStateSelector} from './form';
 import {
   IForm,
   ICharacter,
-  IBioSummary
-} from '../store/form/types';
+  IBioSummary,
+  IRules
+} from '../store/types';
 import {IAppState} from '../store/store';
-import {IRules} from '../store/rules/types';
 import {
   isEmpty,
   gte,

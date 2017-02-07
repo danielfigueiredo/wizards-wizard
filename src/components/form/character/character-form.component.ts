@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import {NgForm} from '@angular/forms';
-import {ICharacter} from '../../../store/form/types';
+import {ICharacter} from '../../../store/types';
 
 @Component({
   selector: 'rio-character-form',

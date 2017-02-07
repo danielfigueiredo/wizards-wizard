@@ -1,7 +1,8 @@
 import {
   ICharacter,
+  IEquipment,
   IForm
-} from './types';
+} from '../types';
 
 export const characterInitialState: ICharacter = {
   name: undefined,
@@ -14,6 +15,13 @@ export const characterInitialState: ICharacter = {
   skills: []
 };
 
+export const equipmentInitialState: IEquipment = {
+  weaponName: '',
+  weaponType: '',
+  armorType: '',
+};
+
 export const initialState: IForm = {
-  character: characterInitialState
+  character: characterInitialState,
+  equipment: equipmentInitialState,
 };

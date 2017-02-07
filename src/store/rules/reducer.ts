@@ -1,5 +1,4 @@
-import {TPayloadAction} from '../types';
-import {IRules} from './types';
+import {TPayloadAction, IRules} from '../types';
 import {merge} from 'ramda';
 
 const initialState: IRules = {

@@ -4,11 +4,16 @@ import {
   TRemoveFromArrayAction,
   TUpdateInArrayAction,
   TPushIntoArrayAction
-} from './form/types';
+} from './form';
 import {
   TFetchRacesAligmentAction,
   TFetchRacesAligmentCompletedAction
-} from './rules/types';
+} from './rules';
+
+export * from './character';
+export * from './equipment';
+export * from './rules';
+export * from './form';
 
 export type TPayloadAction =
     TPushIntoArrayAction

@@ -1,21 +1,12 @@
-type TSkills = string[];
+import {
+  ICharacter,
+  IEquipment
+} from '../types';
 
-export interface IBioSummary {
-  age: number;
-  size: string;
-  alignment: string;
-  race: string;
-}
-
-export interface ICharacter {
-  name?: string;
-  bioSummary: IBioSummary;
-  skills: TSkills;
-}
-
-export interface IForm {
-  character: ICharacter;
-}
+export type IForm = {
+  character: ICharacter,
+  equipment: IEquipment
+};
 
 // Payload component types
 export type TPathActionPayload = {
