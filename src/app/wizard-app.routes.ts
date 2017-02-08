@@ -1,7 +1,8 @@
 import {Routes} from '@angular/router';
 
 import {
-  RioCharacterForm
+  RioCharacterPage,
+  RioEquipmentPage
 } from '../pages';
 
 export const WIZARD_APP_ROUTES: Routes = [{
@@ -10,5 +11,8 @@ export const WIZARD_APP_ROUTES: Routes = [{
   redirectTo: 'character'
 }, {
   path: 'character',
-  component: RioCharacterForm
+  component: RioCharacterPage
+}, {
+  path: 'equipment',
+  component: RioEquipmentPage
 }];

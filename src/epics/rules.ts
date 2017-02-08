@@ -6,7 +6,7 @@ import {TPayloadAction} from '../store/types';
 import {
   TFetchRacesAligmentCompletedAction,
   TRacesAndAlignments
-} from '../store/rules/types';
+} from '../store/types';
 
 const fetchRacesCompleted = (payload: TRacesAndAlignments):
   TFetchRacesAligmentCompletedAction => ({

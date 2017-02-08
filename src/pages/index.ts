@@ -1,3 +1,2 @@
-import { RioCharacterForm } from './character-form.page';
-
-export { RioCharacterForm };
+export * from './character-form.page';
+export * from './equipment-form.page';

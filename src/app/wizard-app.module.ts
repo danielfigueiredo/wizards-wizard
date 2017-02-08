@@ -17,7 +17,8 @@ import {
 } from '@angular/forms';
 import {RioWizardApp} from './wizard-app';
 import {
-  RioCharacterForm,
+  RioCharacterPage,
+  RioEquipmentPage,
 } from '../pages';
 
 import {RioFormModule} from '../components/form/form.module';
@@ -36,7 +37,8 @@ import {RioUiModule} from '../components/ui/ui.module';
   ],
   declarations: [
     RioWizardApp,
-    RioCharacterForm,
+    RioCharacterPage,
+    RioEquipmentPage,
   ],
   bootstrap: [
     RioWizardApp

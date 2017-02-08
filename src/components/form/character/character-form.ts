@@ -7,14 +7,13 @@ import {
 } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import {NgForm} from '@angular/forms';
-import {ICharacter} from '../../../store/form/types';
+import {ICharacter} from '../../../store/types';
 
 @Component({
   selector: 'rio-character-form',
-  template: require('./character-form.component.html'),
+  template: require('./character-form.html'),
 })
-export class RioCharacterFormComponent {
-
+export class RioCharacterForm {
   @ViewChild(NgForm) ngForm: NgForm;
 
   @Input() characterForm: ICharacter;

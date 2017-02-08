@@ -3,10 +3,10 @@ import {
   TUpdateInArray,
   TIndexPayload,
   TSaveForm,
-  TResetForm
-} from '../store/form/types';
-import {TPayloadAction} from '../store/types';
-import {TFetchRacesAligmentAction} from '../store/rules/types';
+  TResetForm,
+  TPayloadAction,
+  TFetchRacesAligmentAction
+} from '../store/types';
 
 export const saveForm = ({path, value}: TSaveForm): TPayloadAction => ({
   type: 'SAVE_FORM',

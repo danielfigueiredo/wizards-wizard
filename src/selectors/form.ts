@@ -1,3 +1,3 @@
-import {IAppState} from '../store/store';
+import {IAppState} from '../store/types';
 
 export const formStateSelector = (state: IAppState) => state.form;

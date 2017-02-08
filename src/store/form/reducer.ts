@@ -5,7 +5,7 @@ import {
   TRemoveFromArrayAction,
   TUpdateInArrayAction,
   TPushIntoArrayAction
-} from './types';
+} from '../types';
 import {
   lensPath,
   view,
@@ -64,6 +64,7 @@ function saveForm(state: IForm, action: TSaveAction) {
     state
   );
 }
+
 
 function resetForm(state: IForm, action: TResetAction) {
   const lensForProp = lensPath(action.payload.path);
