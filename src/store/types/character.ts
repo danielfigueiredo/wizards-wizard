@@ -12,7 +12,3 @@ export interface ICharacter {
   bioSummary: IBioSummary;
   skills: TSkills;
 }
-
-export interface ICharacterForm {
-  character: ICharacter;
-}

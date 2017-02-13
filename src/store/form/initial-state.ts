@@ -22,6 +22,10 @@ export const equipmentInitialState: IEquipment = {
 };
 
 export const initialState: IForm = {
+  archived: {
+    character: [],
+    equipment: [],
+  },
   character: characterInitialState,
   equipment: equipmentInitialState,
 };

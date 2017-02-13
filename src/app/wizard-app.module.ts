@@ -19,6 +19,7 @@ import {RioWizardApp} from './wizard-app';
 import {
   RioCharacterPage,
   RioEquipmentPage,
+  RioListWizardsPage
 } from '../pages';
 
 import {RioFormModule} from '../components/form/form.module';
@@ -39,6 +40,7 @@ import {RioUiModule} from '../components/ui/ui.module';
     RioWizardApp,
     RioCharacterPage,
     RioEquipmentPage,
+    RioListWizardsPage
   ],
   bootstrap: [
     RioWizardApp

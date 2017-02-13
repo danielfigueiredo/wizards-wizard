@@ -182,9 +182,15 @@
     Save
   </button>
   <button
-    class="block btn btn-secondary mb1"
+    class="block btn btn-primary mb1"
     type="button"
     (click)="onReset.emit()">
     Reset
+  </button>
+  <button
+    (click)="onCancel.emit()"
+    class="block btn btn-primary mb1"
+    type="button">
+    Cancel
   </button>
 </form>
