@@ -4,7 +4,9 @@ import {
   TResetAction,
   TRemoveFromArrayAction,
   TUpdateInArrayAction,
-  TPushIntoArrayAction
+  TPushIntoArrayAction,
+  TArchiveAction,
+  TRemoveArchivedAction
 } from '../types';
 import {
   lensPath,
@@ -13,7 +15,9 @@ import {
   assocPath,
   remove,
   update,
-  merge
+  merge,
+  isNil,
+  path
 } from 'ramda';
 import {TPayloadAction} from '../types';
 import {initialState} from './initial-state';
@@ -22,6 +26,8 @@ export function formReducer(state = initialState, action: TPayloadAction) {
   switch (action.type) {
   case 'SAVE_FORM':
   case 'RESET_FORM':
+  case 'ARCHIVE_FORM':
+  case 'REMOVE_ARCHIVED_FORM':
     return formStateReducer(state, action);
   case 'SAVE_INDEXED_FORM_VALUE':
   case 'REMOVE_INDEXED_FORM_VALUE':
@@ -51,8 +57,49 @@ function formStateReducer(state: IForm, action: TPayloadAction) {
     return saveForm(state, action);
   case 'RESET_FORM':
     return resetForm(state, action);
+  case 'ARCHIVE_FORM':
+    return archiveForm(state, action);
+  case 'REMOVE_ARCHIVED_FORM':
+    return removeArchivedForm(state, action);
   default:
     return state;
+  }
+}
+
+function removeArchivedForm(state, {payload}: TRemoveArchivedAction) {
+  const archivedFormsPath = ['archived', ...payload.path];
+  return assocPath(
+    archivedFormsPath,
+    remove(
+      payload.index,
+      1,
+      <any[]> path(archivedFormsPath, state)
+    ),
+    state
+  );
+}
+
+function archiveForm(state: IForm, {payload}: TArchiveAction) {
+  const archivedFormsPath = ['archived', ...payload.path];
+  if (isNil(payload.index)) {
+    return assocPath(
+      archivedFormsPath,
+      concat(
+        <any[]> path(archivedFormsPath, state),
+        [path(payload.path, state)]
+      ),
+      state
+    );
+  } else {
+    return assocPath(
+      archivedFormsPath,
+      update(
+        payload.index,
+        <any[]> path(payload.path, state),
+        <any[]> path(archivedFormsPath, state)
+      ),
+      state
+    );
   }
 }
 

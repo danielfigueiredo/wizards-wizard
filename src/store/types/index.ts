@@ -4,12 +4,12 @@ import {
   TRemoveFromArrayAction,
   TUpdateInArrayAction,
   TPushIntoArrayAction,
-  IForm,
+  TArchiveAction,
+  TRemoveArchivedAction
 } from './form';
 import {
   TFetchRacesAligmentAction,
-  TFetchRacesAligmentCompletedAction,
-  IRules
+  TFetchRacesAligmentCompletedAction
 } from './rules';
 
 export { IAppState } from '../store';
@@ -26,4 +26,6 @@ export type TPayloadAction =
   | TResetAction
   | TFetchRacesAligmentAction
   | TFetchRacesAligmentCompletedAction
+  | TArchiveAction
+  | TRemoveArchivedAction
   ;

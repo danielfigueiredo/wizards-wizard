@@ -1,56 +1,51 @@
 import {
   TValuePayload,
-  TUpdateInArray,
   TIndexPayload,
-  TSaveForm,
-  TResetForm,
   TPayloadAction,
-  TFetchRacesAligmentAction
+  TFetchRacesAligmentAction,
+  TArchiveAction,
+  TPathActionPayload,
+  TRemoveArchivedAction
 } from '../store/types';
 
-export const saveForm = ({path, value}: TSaveForm): TPayloadAction => ({
+export const saveForm = (payload: TValuePayload): TPayloadAction => ({
   type: 'SAVE_FORM',
-  payload: {
-    path,
-    value
-  }
+  payload
 });
 
-export const resetForm = ({path}: TResetForm): TPayloadAction => ({
+export const resetForm = (payload: TPathActionPayload): TPayloadAction => ({
   type: 'RESET_FORM',
-  payload: {
-    path
-  }
+  payload
 });
 
-export const addIntoArray = ({path , value}: TValuePayload):
+export const addIntoArray = (payload: TValuePayload):
   TPayloadAction => ({
   type: 'SAVE_INDEXED_FORM_VALUE',
-  payload: {
-    path,
-    value
-  }
+  payload
 });
 
-export const putInArray = ({value, index, path}: TUpdateInArray):
+export const putInArray = (payload: TValuePayload & TIndexPayload):
   TPayloadAction => ({
   type: 'UPDATE_INDEXED_FORM_VALUE',
-  payload: {
-    path,
-    value,
-    index
-  }
+  payload
 });
 
-export const removeFromArray = ({index, path}: TIndexPayload):
+export const removeFromArray = (payload: TIndexPayload):
   TPayloadAction => ({
   type: 'REMOVE_INDEXED_FORM_VALUE',
-  payload: {
-    index,
-    path
-  }
+  payload
 });
 
 export const fetchRacesAndAlignments = (): TFetchRacesAligmentAction => ({
   type: 'FETCH_RACES_ALIGNMENTS'
+});
+
+export const archiveForm = (payload: TIndexPayload): TArchiveAction => ({
+  type: 'ARCHIVE_FORM',
+  payload
+});
+
+export const removeArchivedForm = (payload: TIndexPayload): TRemoveArchivedAction => ({
+  type: 'REMOVE_ARCHIVED_FORM',
+  payload
 });

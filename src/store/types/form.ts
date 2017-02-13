@@ -3,10 +3,14 @@ import {
   IEquipment
 } from '../types';
 
-export type IForm = {
-  character: ICharacter,
-  equipment: IEquipment
-};
+export interface IForm {
+  archived: {
+    character: ICharacter[];
+    equipment: IEquipment[];
+  };
+  character: ICharacter;
+  equipment: IEquipment;
+}
 
 // Payload component types
 export type TPathActionPayload = {
@@ -21,30 +25,34 @@ export type TIndexPayload = TPathActionPayload & {
   index: number;
 };
 
-// Payload Types
-export type TRemoveFromArray = TPathActionPayload & TIndexPayload;
-export type TPushIntoArray = TPathActionPayload & TValuePayload;
-export type TUpdateInArray = TPushIntoArray & TIndexPayload;
-export type TSaveForm = TPathActionPayload & TValuePayload;
-export type TResetForm = TPathActionPayload;
 
 // Action Types
-export type TSaveAction = { type: 'SAVE_FORM', payload: TSaveForm };
-export type TResetAction = { type: 'RESET_FORM', payload: TResetForm };
+export type TSaveAction = { type: 'SAVE_FORM', payload: TValuePayload };
+export type TResetAction = { type: 'RESET_FORM', payload: TPathActionPayload };
+
+export type TArchiveAction = {
+  type: 'ARCHIVE_FORM',
+  payload: TIndexPayload
+};
+
+export type TRemoveArchivedAction = {
+  type: 'REMOVE_ARCHIVED_FORM',
+  payload: TIndexPayload
+};
 
 export type TPushIntoArrayAction = {
   type: 'SAVE_INDEXED_FORM_VALUE',
-  payload: TPushIntoArray
+  payload: TValuePayload
 };
 
 export type TRemoveFromArrayAction = {
   type: 'REMOVE_INDEXED_FORM_VALUE',
-  payload: TRemoveFromArray
+  payload: TIndexPayload
 };
 
 export type TUpdateInArrayAction = {
   type: 'UPDATE_INDEXED_FORM_VALUE',
-  payload: TUpdateInArray
+  payload: TValuePayload & TIndexPayload
 };
 
 

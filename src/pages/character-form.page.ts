@@ -13,7 +13,8 @@ import {
   putInArray,
   addIntoArray,
   removeFromArray,
-  fetchRacesAndAlignments
+  fetchRacesAndAlignments,
+  archiveForm
 } from '../actions/index';
 import {
   isFormValidSelector,
@@ -29,13 +30,17 @@ import {
 } from '../mocks';
 import {RioCharacterForm} from '../components';
 import {Observable} from 'rxjs';
+import {
+  ActivatedRoute,
+  Router
+} from '@angular/router';
 
 @Component({
   template: require('./character-form.page.html'),
 })
 export class RioCharacterPage {
 
-  private static FORM_NAME = 'character';
+  public static FORM_NAME = 'character';
   private static SKILLS_FIELD = 'skills';
   private static SKILL_FIELD_PATH = [
     RioCharacterPage.FORM_NAME,
@@ -61,8 +66,13 @@ export class RioCharacterPage {
   private skills = skills;
   private races = races;
   private alignments = alignments;
+  private editIndex;
 
-  constructor(private ngRedux: NgRedux<IAppState>) {}
+  constructor(
+    private ngRedux: NgRedux<IAppState>,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.ngRedux.dispatch(fetchRacesAndAlignments());
@@ -74,11 +84,17 @@ export class RioCharacterPage {
       .subscribe(change =>
         this.ngRedux.dispatch(
           saveForm({
-            value: change,
-            path: [RioCharacterPage.FORM_NAME]
+            path: [RioCharacterPage.FORM_NAME],
+            value: change
           })
         )
       );
+    this.activatedRoute.queryParams.subscribe(params => {
+      const index = params['index'];
+      if (index) {
+        this.editIndex = parseInt(index, 10);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -96,8 +112,12 @@ export class RioCharacterPage {
     );
   }
 
-  onSubmit(form) {
-    // save on backend
+  onSubmit() {
+    this.ngRedux.dispatch(archiveForm({
+      path: [RioCharacterPage.FORM_NAME],
+      index: this.editIndex
+    }));
+    this.router.navigateByUrl('/');
   }
 
   onReset() {
@@ -122,6 +142,10 @@ export class RioCharacterPage {
         path: RioCharacterPage.SKILL_FIELD_PATH
       })
     );
+  }
+
+  onCancel() {
+    this.router.navigateByUrl('/');
   }
 
 }

@@ -31,5 +31,6 @@ export class RioCharacterForm {
   @Output() removeSkill = new EventEmitter();
   @Output() onSubmit = new EventEmitter();
   @Output() onReset = new EventEmitter();
+  @Output() onCancel = new EventEmitter();
 
 }
