@@ -1,5 +1,6 @@
 import {createSelector} from 'reselect';
-import {formStateSelector} from './form';
+import {formStateSelector, createFormFieldSelector} from './form';
+import {rulesSelector} from './rules';
 import {
   IForm,
   ICharacter,
@@ -13,18 +14,20 @@ import {
   lte,
   pipe,
   filter,
-  isNil
+  isNil,
+  path
 } from 'ramda';
+import {
+  isValid,
+  maxStringLengthValidation,
+  minStringLengthValidation,
+  maxNumberValidation,
+} from '../utils/validation';
 
 export const characterFormSelector = createSelector(
   formStateSelector,
   (form: IForm) => form.character
 );
-
-// TODO: Move this to its own file
-const rulesSelector = (state: IAppState) => {
-  return state.rules;
-};
 
 const raceAlignmentSelector = createSelector(
   rulesSelector,
@@ -68,10 +71,13 @@ export const isAgeValidSelector = createSelector(
   }
 );
 
+// Let's do an abstracted example and a non abstracted example
 export const isNameValidSelector = createSelector(
-  characterFormSelector,
-  (character: ICharacter)  => character.name &&
-  gte(character.name.length, 3) && lte(character.name.length, 50)
+  createFormFieldSelector(['character','name']),
+  isValid(
+    maxStringLengthValidation(50),
+    minStringLengthValidation(3),
+  ),
 );
 
 export const isSkillsValidSelector = createSelector(
