@@ -45,7 +45,8 @@ export const archiveForm = (payload: TIndexPayload): TArchiveAction => ({
   payload
 });
 
-export const removeArchivedForm = (payload: TIndexPayload): TRemoveArchivedAction => ({
+export const removeArchivedForm =
+(payload: TIndexPayload): TRemoveArchivedAction => ({
   type: 'REMOVE_ARCHIVED_FORM',
   payload
 });

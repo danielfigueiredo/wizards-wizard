@@ -1,8 +1,13 @@
-import {IAppState} from '../store/types';
+import {IAppState, IForm} from '../store/types';
 import {createSelector} from 'reselect';
-import {IForm} from '../store/types/form';
+import { path } from 'ramda';
 
 export const formStateSelector = (state: IAppState) => state.form;
+
+export const createFormFieldSelector = (fieldPath: string[]) => createSelector(
+  formStateSelector,
+  (form: IForm) => path(fieldPath, form)
+);
 
 export const archivedCharactersSelector = createSelector(
   formStateSelector,

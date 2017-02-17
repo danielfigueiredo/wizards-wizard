@@ -1,5 +1,6 @@
 import {createSelector} from 'reselect';
-import {formStateSelector} from './form';
+import {formStateSelector, createFormFieldSelector} from './form';
+import {rulesSelector} from './rules';
 import {
   IForm,
   ICharacter,
@@ -8,23 +9,22 @@ import {
   IAppState
 } from '../store/types';
 import {
-  isEmpty,
   gte,
   lte,
-  pipe,
-  filter,
-  isNil
+  path
 } from 'ramda';
+import {
+  isValid,
+  maxStringLengthValidation,
+  minStringLengthValidation,
+  maxNumberValidation,
+  arrayNotEmptyValidation
+} from '../utils/validation';
 
 export const characterFormSelector = createSelector(
   formStateSelector,
   (form: IForm) => form.character
 );
-
-// TODO: Move this to its own file
-const rulesSelector = (state: IAppState) => {
-  return state.rules;
-};
 
 const raceAlignmentSelector = createSelector(
   rulesSelector,
@@ -34,6 +34,19 @@ const raceAlignmentSelector = createSelector(
 export const bioSummarySelector = createSelector(
   characterFormSelector,
   (character: ICharacter) => character.bioSummary
+);
+
+export const isNameValidSelector = createSelector(
+  createFormFieldSelector(['character', 'name']),
+  isValid(
+    maxStringLengthValidation(50),
+    minStringLengthValidation(3),
+  ),
+);
+
+export const isSkillsValidSelector = createSelector(
+  createFormFieldSelector(['character', 'skills']),
+  isValid(arrayNotEmptyValidation()),
 );
 
 export const isRaceAlignmentValidSelector = createSelector(
@@ -65,26 +78,6 @@ export const isAgeValidSelector = createSelector(
     case 'Tiefling':
       return gte(bioSummary.age, 35) && lte(bioSummary.age, 53);
     }
-  }
-);
-
-export const isNameValidSelector = createSelector(
-  characterFormSelector,
-  (character: ICharacter)  => character.name &&
-  gte(character.name.length, 3) && lte(character.name.length, 50)
-);
-
-export const isSkillsValidSelector = createSelector(
-  characterFormSelector,
-  (character: ICharacter)  => {
-    if (isEmpty(character.skills)) {
-      return false;
-    }
-    const hasValue = pipe(
-      filter(isNil),
-      isEmpty
-    );
-    return hasValue(character.skills);
   }
 );
 
