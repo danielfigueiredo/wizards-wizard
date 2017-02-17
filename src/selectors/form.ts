@@ -4,7 +4,7 @@ import { path } from 'ramda';
 
 export const formStateSelector = (state: IAppState) => state.form;
 
-export const createFormFieldSelector = (fieldPath) => createSelector(
+export const createFormFieldSelector = (fieldPath: string[]) => createSelector(
   formStateSelector,
   (form: IForm) => path(fieldPath, form)
 );

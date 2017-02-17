@@ -1,5 +1,4 @@
-// import { forEach } from 'ramda';
-// return forEach((val) => !val(arg) ? false : true, validators);
+import { isEmpty, pipe, filter, isNil } from 'ramda';
 
 export const isValid = (...validators): any => {
   return (arg: any) => {
@@ -11,8 +10,20 @@ export const isValid = (...validators): any => {
     }
     return true;
   };
-}
+};
+
 // Validator functions
-export const maxNumberValidation = (max: number) => (value: number) => value < max;
-export const maxStringLengthValidation = (max: number) => (value: string) => value.length < max;
-export const minStringLengthValidation = (min: number) => (value: string) => value.length > min;
+export const maxNumberValidation = (max: number) =>
+  (value: number) => value < max;
+export const maxStringLengthValidation = (max: number) =>
+  (value: string) => value.length < max;
+export const minStringLengthValidation = (min: number) =>
+  (value: string) => value.length > min;
+export const arrayNotEmptyValidation = () =>
+  (value: string[]) => {
+    const hasValue = pipe(
+      filter(isNil),
+      isEmpty
+    );
+    return isEmpty(value) ? false : hasValue(value);
+  };
