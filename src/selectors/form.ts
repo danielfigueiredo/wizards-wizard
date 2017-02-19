@@ -4,9 +4,9 @@ import { path } from 'ramda';
 
 export const formStateSelector = (state: IAppState) => state.form;
 
-export const createFormFieldSelector = (fieldPath: string[]) => createSelector(
+export const createFormFieldSelector = <T>(fieldPath: string[]) => createSelector(
   formStateSelector,
-  (form: IForm) => path(fieldPath, form)
+  (form: IForm) => <T> path(fieldPath, form)
 );
 
 export const archivedCharactersSelector = createSelector(

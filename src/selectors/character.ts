@@ -1,24 +1,20 @@
 import {createSelector} from 'reselect';
-import {formStateSelector, createFormFieldSelector} from './form';
+import {
+  formStateSelector,
+  createFormFieldSelector
+} from './form';
 import {rulesSelector} from './rules';
 import {
   IForm,
-  ICharacter,
   IBioSummary,
-  IRules,
-  IAppState
+  IRules
 } from '../store/types';
-import {
-  gte,
-  lte,
-  path
-} from 'ramda';
 import {
   isValid,
   maxStringLengthValidation,
   minStringLengthValidation,
-  maxNumberValidation,
-  arrayNotEmptyValidation
+  arrayNotEmptyValidation,
+  isBetweenNumber
 } from '../utils/validation';
 
 export const characterFormSelector = createSelector(
@@ -31,22 +27,25 @@ const raceAlignmentSelector = createSelector(
   (rules: IRules) => rules.racesAndAlignments
 );
 
-export const bioSummarySelector = createSelector(
-  characterFormSelector,
-  (character: ICharacter) => character.bioSummary
+export const bioSummarySelector = createFormFieldSelector<IBioSummary>(['character', 'bioSummary']);
+
+const nameSelector = createFormFieldSelector<string>(['character', 'name']);
+
+const isNameValid = isValid(
+  maxStringLengthValidation(50),
+  minStringLengthValidation(3),
 );
 
 export const isNameValidSelector = createSelector(
-  createFormFieldSelector(['character', 'name']),
-  isValid(
-    maxStringLengthValidation(50),
-    minStringLengthValidation(3),
-  ),
+  nameSelector,
+  isNameValid
 );
 
+const skillsSelector = createFormFieldSelector<string[]>(['character', 'skills']);
+
 export const isSkillsValidSelector = createSelector(
-  createFormFieldSelector(['character', 'skills']),
-  isValid(arrayNotEmptyValidation()),
+  skillsSelector,
+  arrayNotEmptyValidation,
 );
 
 export const isRaceAlignmentValidSelector = createSelector(
@@ -64,21 +63,31 @@ export const isRaceAlignmentValidSelector = createSelector(
   }
 );
 
-export const isAgeValidSelector = createSelector(
+const humanAgeValid = isBetweenNumber(14, 40);
+const elfAgeValid = isBetweenNumber(80, 800);
+const tieflingAgeValid = isBetweenNumber(35, 53);
+
+const ageValidationSelector = createSelector(
   bioSummarySelector,
   (bioSummary: IBioSummary) => {
     if (!bioSummary.race) {
-      return false;
+      return () => true;
     }
     switch (bioSummary.race) {
-    case 'Human':
-      return gte(bioSummary.age, 14) && lte(bioSummary.age, 40);
-    case 'Elf':
-      return gte(bioSummary.age, 80) && lte(bioSummary.age, 800);
-    case 'Tiefling':
-      return gte(bioSummary.age, 35) && lte(bioSummary.age, 53);
+      case 'Human':
+        return humanAgeValid;
+      case 'Elf':
+        return elfAgeValid;
+      case 'Tiefling':
+        return tieflingAgeValid;
     }
   }
+);
+
+export const isAgeValidSelector = createSelector(
+  bioSummarySelector,
+  ageValidationSelector,
+  ({age}, isAgeValid) => isAgeValid(age)
 );
 
 export const isFormValidSelector = createSelector(
