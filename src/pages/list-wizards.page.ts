@@ -5,7 +5,7 @@ import {archivedCharactersSelector} from '../selectors/form';
 import {
   select,
   NgRedux
-} from 'ng2-redux';
+} from '@angular-redux/store';
 import {Observable} from 'rxjs';
 import {ICharacter} from '../store/types';
 import {

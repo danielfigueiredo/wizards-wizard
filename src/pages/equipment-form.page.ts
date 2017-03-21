@@ -6,7 +6,7 @@ import { NgForm } from '@angular/forms';
 import {
   NgRedux,
   select
-} from 'ng2-redux';
+} from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { RioEquipmentForm } from '../components';
 import {

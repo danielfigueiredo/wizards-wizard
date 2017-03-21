@@ -4,8 +4,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {
   NgReduxModule,
   DevToolsExtension,
-} from 'ng2-redux';
-import {NgReduxRouter} from 'ng2-redux-router';
+} from '@angular-redux/store';
+import {NgReduxRouter} from '@angular-redux/router';
 import {
   routing,
   appRoutingProviders
@@ -34,7 +34,7 @@ import {RioUiModule} from '../components/ui/ui.module';
     CommonModule,
     RioFormModule,
     RioUiModule,
-    NgReduxModule.forRoot(),
+    NgReduxModule,
   ],
   declarations: [
     RioWizardApp,

@@ -4,9 +4,8 @@ import {
 } from '@angular/core';
 import {
   NgRedux,
-} from 'ng2-redux';
-import {NgReduxRouter} from 'ng2-redux-router';
-import {RioHeader} from '../components';
+} from '@angular-redux/store';
+import {NgReduxRouter} from '@angular-redux/router';
 import {
   IAppState,
   store

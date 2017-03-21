@@ -1,12 +1,14 @@
 import {
   Component,
-  ViewChild
+  ViewChild,
+  OnInit,
+  AfterViewInit,
 } from '@angular/core';
 import {IAppState} from '../store/types';
 import {
   NgRedux,
   select
-} from 'ng2-redux';
+} from '@angular-redux/store';
 import {
   saveForm,
   resetForm,
@@ -38,7 +40,7 @@ import {
 @Component({
   template: require('./character-form.page.html'),
 })
-export class RioCharacterPage {
+export class RioCharacterPage implements OnInit, AfterViewInit {
 
   public static FORM_NAME = 'character';
   private static SKILLS_FIELD = 'skills';
@@ -80,6 +82,15 @@ export class RioCharacterPage {
       .subscribe(characterForm => {
         this.characterForm = characterForm;
       });
+    this.activatedRoute.queryParams.subscribe(params => {
+      const index = params['index'];
+      if (index) {
+        this.editIndex = parseInt(index, 10);
+      }
+    });
+  }
+
+  ngAfterViewInit() {
     this.formComponent.ngForm.valueChanges.debounceTime(0)
       .subscribe(change =>
         this.ngRedux.dispatch(
@@ -89,12 +100,6 @@ export class RioCharacterPage {
           })
         )
       );
-    this.activatedRoute.queryParams.subscribe(params => {
-      const index = params['index'];
-      if (index) {
-        this.editIndex = parseInt(index, 10);
-      }
-    });
   }
 
   ngOnDestroy() {
