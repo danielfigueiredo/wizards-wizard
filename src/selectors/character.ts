@@ -27,7 +27,9 @@ const raceAlignmentSelector = createSelector(
   (rules: IRules) => rules.racesAndAlignments
 );
 
-export const bioSummarySelector = createFormFieldSelector<IBioSummary>(['character', 'bioSummary']);
+export const bioSummarySelector = createFormFieldSelector<IBioSummary>(
+  ['character', 'bioSummary']
+);
 
 const nameSelector = createFormFieldSelector<string>(['character', 'name']);
 
@@ -41,7 +43,9 @@ export const isNameValidSelector = createSelector(
   isNameValid
 );
 
-const skillsSelector = createFormFieldSelector<string[]>(['character', 'skills']);
+const skillsSelector = createFormFieldSelector<string[]>(
+  ['character', 'skills']
+);
 
 export const isSkillsValidSelector = createSelector(
   skillsSelector,
@@ -99,12 +103,12 @@ export const isFormValidSelector = createSelector(
   (
     isAgeValid,
     isRaceAlignmentValid,
-    isNameValid,
+    isNameFieldValid,
     isSkillsValid,
     character
   ) => isAgeValid
     && isRaceAlignmentValid
-    && isNameValid
+    && isNameFieldValid
     && isSkillsValid
     && character.bioSummary.size
 );

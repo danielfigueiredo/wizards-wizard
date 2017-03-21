@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'ng2-redux-router';
+import { routerReducer } from '@angular-redux/router';
 import { formReducer } from './form';
 import { rulesReducer } from './rules/reducer';
 import { IForm, IRules } from './types';

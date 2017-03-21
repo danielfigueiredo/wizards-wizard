@@ -9,18 +9,21 @@ import {
   TRemoveArchivedAction
 } from '../types';
 import {
-  lensPath,
-  view,
+  path,
   concat,
   assocPath,
   remove,
   update,
   merge,
   isNil,
-  path
+  last,
 } from 'ramda';
 import {TPayloadAction} from '../types';
-import {initialState} from './initial-state';
+import {
+  initialState,
+  characterInitialState,
+  equipmentInitialState,
+} from './initial-state';
 
 export function formReducer(state = initialState, action: TPayloadAction) {
   switch (action.type) {
@@ -73,7 +76,7 @@ function removeArchivedForm(state, {payload}: TRemoveArchivedAction) {
     remove(
       payload.index,
       1,
-      <any[]> path(archivedFormsPath, state)
+      path<any[]>(archivedFormsPath, state)
     ),
     state
   );
@@ -85,7 +88,7 @@ function archiveForm(state: IForm, {payload}: TArchiveAction) {
     return assocPath(
       archivedFormsPath,
       concat(
-        <any[]> path(archivedFormsPath, state),
+        path<any[]>(archivedFormsPath, state),
         [path(payload.path, state)]
       ),
       state
@@ -95,8 +98,8 @@ function archiveForm(state: IForm, {payload}: TArchiveAction) {
       archivedFormsPath,
       update(
         payload.index,
-        <any[]> path(payload.path, state),
-        <any[]> path(archivedFormsPath, state)
+        path<any[]>(payload.path, state),
+        path<any[]>(archivedFormsPath, state)
       ),
       state
     );
@@ -104,57 +107,69 @@ function archiveForm(state: IForm, {payload}: TArchiveAction) {
 }
 
 function saveForm(state: IForm, action: TSaveAction) {
-  const lensForProp = lensPath(action.payload.path);
+  const propPath = action.payload.path;
   return assocPath(
-    action.payload.path,
-    merge(view(lensForProp, state), action.payload.value),
+    propPath,
+    merge(
+      path<string[]>(propPath, state),
+      action.payload.value
+    ),
     state
   );
 }
 
 
 function resetForm(state: IForm, action: TResetAction) {
-  const lensForProp = lensPath(action.payload.path);
-  return assocPath(
-    action.payload.path,
-    merge(view(lensForProp, state), view(lensForProp, initialState)),
-    state
-  );
+  const path = action.payload.path;
+  switch (last(path)) {
+  case 'character':
+    return assocPath(
+      path,
+      characterInitialState,
+      state
+    );
+  case 'equipment':
+    return assocPath(
+      path,
+      equipmentInitialState,
+      state
+    );
+  }
+  return initialState;
 }
 
 function addIndexedFormValue(state: IForm, action: TPushIntoArrayAction) {
-  const lensForProp = lensPath(action.payload.path);
-  const propValue = <any[]> view(lensForProp, state);
   return assocPath(
     ['character', 'skills'],
-    concat(propValue, [action.payload.value]),
+    concat(
+      path<string[]>(action.payload.path, state),
+      [action.payload.value]
+    ),
     state
   );
 }
 
 function removeIndexedFormValue(state: IForm, action: TRemoveFromArrayAction) {
-  const lensForProp = lensPath(action.payload.path);
-  const propValue = <any[]> view(lensForProp, state);
+  const propPath = action.payload.path;
   return assocPath(
-    action.payload.path,
+    propPath,
     remove(
       action.payload.index,
       1,
-      propValue
+      path<string[]>(propPath, state)
     ),
     state
   );
 }
 
 function updateIndexedFormValue(state: IForm, action: TUpdateInArrayAction) {
-  const lensForProp = lensPath(action.payload.path);
-  const propValue = <any[]> view(lensForProp, state);
+  const propPath = action.payload.path;
   return assocPath(
-    action.payload.path,
+    propPath,
     update(
       action.payload.index,
       action.payload.value,
-      propValue
+      path<string[]>(propPath, state)
     ),
     state
   );
